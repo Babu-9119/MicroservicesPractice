@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to lets build bank Production ENV"
+  contactDetails:
+    name: "Babu - Product Owner"
+    email: "babureddypyayala@gmail.com"
+  onCallSupport:
+    -(777)777-1234
+    -(777)777-1235
