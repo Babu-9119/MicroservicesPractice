@@ -1,0 +1,12 @@
+
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to lets build bank Local Env"
+  contactDetails:
+    name: "Babu - Developer"
+    email: "test@gmail.com"
+  onCallSupport:
+    -(555)555-1234
+    -(555)555-1235

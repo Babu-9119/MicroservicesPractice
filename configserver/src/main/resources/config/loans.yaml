@@ -1,0 +1,12 @@
+
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to local loans Microservice API"
+  contactDetails:
+    name: "Babu - Developer"
+    email: "test@gmail.com"
+  onCallSupport:
+    -(555)123 4567
+    -(555)123 4568

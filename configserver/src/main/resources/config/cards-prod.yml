@@ -1,0 +1,12 @@
+
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome to prod CARDS Microservice API"
+  contactDetails:
+    name: "Babu - Product Owner"
+    email: "test@gmail.com"
+  onCallSupport:
+    -(555)123 4567
+    -(555)123 4568
