@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "2.0"
+
+cards:
+  message: "Welcome to QA CARDS Microservice API"
+  contactDetails:
+    name: "Babu - QA Engineer"
+    email: "test@gmail.com"
+  onCallSupport:
+    -(555)123 4567
+    -(555)123 4568

@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+loans:
+  message: "Welcome to prod loans Microservice API"
+  contactDetails:
+    name: "Babu - Product Owner"
+    email: "test@gmail.com"
+  onCallSupport:
+    -(555)123 4567
+    -(555)123 4568

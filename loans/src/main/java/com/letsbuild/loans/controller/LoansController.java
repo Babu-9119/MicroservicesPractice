@@ -1,10 +1,14 @@
 package com.letsbuild.loans.controller;
 
 import com.letsbuild.loans.constants.LoansConstants;
+import com.letsbuild.loans.dto.LoansContactInfoDto;
 import com.letsbuild.loans.dto.LoansDto;
 import com.letsbuild.loans.dto.ResponseDto;
 import com.letsbuild.loans.service.ILoansService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +16,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
 public class LoansController {
 
+    @Autowired
     private ILoansService iLoansService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private LoansContactInfoDto loansContactInfoDto;
 
     @RequestMapping("/hello")
     public String sayHello(){
         return "Hello";
     }
+
+
 
     @PostMapping("/createLoan")
     public ResponseEntity<ResponseDto> createLoan(@RequestParam String mobileNumber){
@@ -69,4 +84,30 @@ public class LoansController {
         }
 
     }
+
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildVersion(){
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion(){
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfoDto> getContactInfo(){
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(loansContactInfoDto);
+    }
+
+
 }
