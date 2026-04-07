@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: cards
+  profiles:
+    active: "prod"
   datasource:
     url : jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -18,20 +20,4 @@ spring:
       ddl-auto: update
     show-sql: true
   config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
-  profiles:
-    active: "prod"
-
-build:
-  version: "3.0"
-
-cards:
-  message: "Welcome to local CARDS Microservice API"
-  contactDetails:
-    name: "Babu - Developer"
-    email: "test@gmail.com"
-  onCallSupport:
-    -(555)123 4567
-    -(555)123 4568
+    import: "configserver:http://localhost:8071/"
