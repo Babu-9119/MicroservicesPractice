@@ -1,5 +1,6 @@
 package com.letsbuild.accounts.mapper;
 
+import com.letsbuild.accounts.dto.CustomerDetailsDto;
 import com.letsbuild.accounts.dto.CustomerDto;
 import com.letsbuild.accounts.entity.Customer;
 
@@ -12,6 +13,15 @@ public class CustomerMapper {
         customerDto.setMobileNumber(customer.getMobileNumber());
 
         return customerDto;
+    }
+
+    public static CustomerDetailsDto mapToCustomerDetailsDto(Customer customer, CustomerDetailsDto customerDetailsDto){
+
+        customerDetailsDto.setName(customer.getName());
+        customerDetailsDto.setEmail(customer.getEmail());
+        customerDetailsDto.setMobileNumber(customer.getMobileNumber());
+
+        return customerDetailsDto;
     }
 
     public static Customer mapToCustomer(CustomerDto customerDto, Customer customer){

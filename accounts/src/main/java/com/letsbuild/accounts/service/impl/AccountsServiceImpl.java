@@ -76,7 +76,7 @@ public class AccountsServiceImpl implements IAccountsService {
                 () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
         );
 
-        Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId());
+        Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(() -> new ResourceNotFoundException("Accounts","Customer id", customer.getCustomerId().toString()));
 
         CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer,new CustomerDto());
         customerDto.setAccountsDto(AccountsMapper.mapTOAccountsDto(accounts, new AccountsDto()));
