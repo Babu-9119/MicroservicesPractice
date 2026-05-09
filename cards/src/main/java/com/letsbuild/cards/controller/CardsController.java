@@ -6,6 +6,8 @@ import com.letsbuild.cards.dto.CardsDto;
 import com.letsbuild.cards.dto.ResponseDto;
 import com.letsbuild.cards.service.ICardsService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CardsController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CardsController.class);
 
     @Autowired
     private ICardsService iCardsService;
@@ -46,8 +50,9 @@ public class CardsController {
     }
 
     @GetMapping("/fetchCard")
-    public ResponseEntity<CardsDto> fetchCardDetails(@RequestParam String mobileNumber){
-
+    public ResponseEntity<CardsDto> fetchCardDetails(@RequestHeader("correlation-id") String correlationId, @RequestParam String mobileNumber){
+        logger.debug("letsbuild-correlation-id found in RequestTraceFilter : {}",
+                correlationId);
         CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
 
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);

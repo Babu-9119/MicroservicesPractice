@@ -6,6 +6,8 @@ import com.letsbuild.loans.dto.LoansDto;
 import com.letsbuild.loans.dto.ResponseDto;
 import com.letsbuild.loans.service.ILoansService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoansController {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoansController.class);
 
     @Autowired
     private ILoansService iLoansService;
@@ -46,8 +50,9 @@ public class LoansController {
     }
 
     @GetMapping("/fetchLoan")
-    public ResponseEntity<LoansDto> fetchLoan(@RequestParam String mobileNumber){
-
+    public ResponseEntity<LoansDto> fetchLoan(@RequestHeader("correlation-id") String correlationId, @RequestParam String mobileNumber){
+        logger.debug("letsbuild-correlation-id found in RequestTraceFilter : {}",
+                correlationId);
         LoansDto loansDto = iLoansService.fetchLoan(mobileNumber);
 
         return ResponseEntity
