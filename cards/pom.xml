@@ -129,7 +129,7 @@
 				<version>3.5.1</version>
 				<configuration>
 					<to>
-						<image>babureddy9119/${project.artifactId}:v1</image>
+						<image>babureddy9119/${project.artifactId}:v2</image>
 					</to>
 				</configuration>
 			</plugin>
