@@ -22,11 +22,14 @@ public class GatewayserverApplication {
 				.route(p -> p
 						.path("/letsbuild/accounts/**")
 						.filters(f -> f.rewritePath("/letsbuild/accounts/(?<segment>.*)","/${segment}")
+								.circuitBreaker(config -> config.setName("accountsCircuitBreaker")
+										.setFallbackUri("forward:/contactSupport"))
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 						.uri("lb://ACCOUNTS"))
 				.route(p -> p
 						.path("/letsbuild/loans/**")
-						.filters(f -> f.rewritePath("/letsbuild/loans/(?<segment>.*)","/${segment}").addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+						.filters(f -> f.rewritePath("/letsbuild/loans/(?<segment>.*)","/${segment}")
+								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 						.uri("lb://LOANS"))
 				.route(p -> p
 						.path("/letsbuild/cards/**")
