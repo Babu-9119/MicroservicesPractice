@@ -43,7 +43,7 @@ public class GatewayserverApplication {
 								.retry(retryConfig -> retryConfig.setRetries(3)
 										.setMethods(HttpMethod.GET)
 										.setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true)))
-						.uri("http://localhost:8090"))
+						.uri("lb://LOANS"))
 				.route(p -> p
 						.path("/letsbuild/cards/**")
 						.filters(f -> f.rewritePath("/letsbuild/cards/(?<segment>.*)","/${segment}").addResponseHeader("X-Response-Time", LocalDateTime.now().toString())

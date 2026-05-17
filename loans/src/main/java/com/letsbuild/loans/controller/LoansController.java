@@ -51,10 +51,9 @@ public class LoansController {
 
     @GetMapping("/fetchLoan")
     public ResponseEntity<LoansDto> fetchLoan(@RequestHeader("correlation-id") String correlationId, @RequestParam String mobileNumber){
-        logger.debug("letsbuild-correlation-id found in RequestTraceFilter : {}",
-                correlationId);
+        logger.debug("fetchLoan method start");
         LoansDto loansDto = iLoansService.fetchLoan(mobileNumber);
-
+        logger.debug("fetchLoan method end");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(loansDto);

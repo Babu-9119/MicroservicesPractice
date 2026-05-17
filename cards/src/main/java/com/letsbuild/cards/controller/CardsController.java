@@ -51,10 +51,9 @@ public class CardsController {
 
     @GetMapping("/fetchCard")
     public ResponseEntity<CardsDto> fetchCardDetails(@RequestHeader("correlation-id") String correlationId, @RequestParam String mobileNumber){
-        logger.debug("letsbuild-correlation-id found in RequestTraceFilter : {}",
-                correlationId);
+        logger.debug("fetchCardDetails method start");
         CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
-
+        logger.debug("fetchCardDetails method end");
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
