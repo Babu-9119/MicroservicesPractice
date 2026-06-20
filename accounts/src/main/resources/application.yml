@@ -19,7 +19,7 @@ spring:
       ddl-auto: update
       show-sql: true
   config:
-    import: "configserver:http://configserver:8071/"
+    import: "configserver:http://localhost:8071/"
 
   cloud:
     openfeign:
