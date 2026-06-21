@@ -1,5 +1,18 @@
 services:
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.7
+    container_name: keycloak
+    ports:
+      - "127.0.0.1:7080:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: "admin"
+      KC_BOOTSTRAP_ADMIN_PASSWORD: "admin"
+    command: "start-dev"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   read:
     image: grafana/loki:3.6.2
     command: "-config.file=/etc/loki/config.yaml -target=read"
@@ -216,7 +229,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "babureddy9119/configserver:s11"
+    image: "babureddy9119/configserver:s12"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -233,7 +246,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "babureddy9119/eurekaserver:s11"
+    image: "babureddy9119/eurekaserver:s12"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -254,10 +267,8 @@ services:
       OTEL_SERVICE_NAME: "eurekaserver"
 
   accounts:
-    image: "babureddy9119/accounts:s11"
+    image: "babureddy9119/accounts:s12"
     container_name: accounts-ms
-    ports:
-      - "8080:8080"
     depends_on:
       configserver:
         condition: service_healthy
@@ -278,10 +289,8 @@ services:
 
 
   loans:
-    image: "babureddy9119/loans:s11"
+    image: "babureddy9119/loans:s12"
     container_name: loans-ms
-    ports:
-      - "8090:8090"
     depends_on:
       configserver:
         condition: service_healthy
@@ -302,10 +311,8 @@ services:
 
 
   cards:
-    image: "babureddy9119/cards:s11"
+    image: "babureddy9119/cards:s12"
     container_name: cards-ms
-    ports:
-      - "9000:9000"
     depends_on:
       configserver:
         condition: service_healthy
@@ -325,7 +332,7 @@ services:
       service: microservice-eureka-config
 
   gatewayserver:
-    image: "babureddy9119/gatewayserver:s11"
+    image: "babureddy9119/gatewayserver:s12"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
@@ -339,6 +346,7 @@ services:
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver"
       OTEL_SERVICE_NAME: "gatewayserver"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
     extends:
       file: common-config.yml
       service: microservice-eureka-config
